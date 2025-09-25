@@ -66,7 +66,8 @@ public class ParticipanteController {
                             editarParticipante(participante, getIndex());
                         });
                         btnEliminar.setOnAction(e->{
-                            eliminarParticipante(getIndex());
+                            Participante participante = getTableView().getItems().get(getIndex());
+                            eliminarParticipante(participante.getDni().getValue());
                         });
 
                     }
@@ -111,7 +112,7 @@ public class ParticipanteController {
         if (indexE == -1) {
             ps.save(participante);
         }else{
-            ps.update(participante, indexE);
+            ps.update(participante);
             indexE = -1;
         }
         limpiarFormulario();
@@ -133,8 +134,8 @@ public class ParticipanteController {
         cbxTipoParticipante.getSelectionModel().select(p.getTipoParticipante());
         indexE = index;
     }
-    public void eliminarParticipante(int index){
-        ps.delete(index);
+    public void eliminarParticipante(String dni){
+        ps.delete(dni);
         listarParticipantes();
     }
 
