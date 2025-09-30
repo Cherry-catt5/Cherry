@@ -67,7 +67,7 @@ public class ParticipanteController {
                         });
                         btnEliminar.setOnAction(e->{
                             Participante participante = getTableView().getItems().get(getIndex());
-                            eliminarParticipante(participante.getDni().getValue());
+                            eliminarParticipante(participante.getDni());
                         });
 
                     }
@@ -87,11 +87,11 @@ public class ParticipanteController {
     }
     public void listarParticipantes(){
         dniCol.setCellValueFactory(cellData->
-                cellData.getValue().getDni());
+                new SimpleStringProperty(cellData.getValue().getDni()));
         nombreCol.setCellValueFactory(cellData->
-                cellData.getValue().getNombre());
+                new SimpleStringProperty(cellData.getValue().getNombre()));
         apellidosCol.setCellValueFactory(cellData->
-                cellData.getValue().getApellidos());
+                new SimpleStringProperty(cellData.getValue().getApellidos()));
         carreraCol.setCellValueFactory(cellData->
                 new SimpleStringProperty(cellData.getValue().getCarrera().toString()));
         tipoPartCol.setCellValueFactory(cellData->
@@ -104,9 +104,9 @@ public class ParticipanteController {
 
     public void crearParticipante(){
         Participante participante = new Participante();
-        participante.setDni(new SimpleStringProperty(txtDni.getText()));
-        participante.setNombre(new SimpleStringProperty(txtNombres.getText()));
-        participante.setApellidos(new SimpleStringProperty(txtApellidos.getText()));
+        participante.setDni(txtDni.getText());
+        participante.setNombre(txtNombres.getText());
+        participante.setApellidos(txtApellidos.getText());
         participante.setCarrera(cbxCarrera.getValue());
         participante.setTipoParticipante(cbxTipoParticipante.getValue());
         if (indexE == -1) {
@@ -127,9 +127,9 @@ public class ParticipanteController {
         cbxTipoParticipante.getSelectionModel().clearSelection();
     }
     public void editarParticipante(Participante p, int index){
-        txtDni.setText(p.getDni().getValue());
-        txtNombres.setText(p.getNombre().getValue());
-        txtApellidos.setText(p.getApellidos().getValue());
+        txtDni.setText(p.getDni());
+        txtNombres.setText(p.getNombre());
+        txtApellidos.setText(p.getApellidos());
         cbxCarrera.getSelectionModel().select(p.getCarrera());
         cbxTipoParticipante.getSelectionModel().select(p.getTipoParticipante());
         indexE = index;
